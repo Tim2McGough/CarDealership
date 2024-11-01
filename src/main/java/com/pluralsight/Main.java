@@ -13,9 +13,16 @@ public class Main {
             System.out.println("Name: " + dealership.getName());
             System.out.println("Address: " + dealership.getAddress());
             System.out.println("Phone: " + dealership.getPhone());
+
+            // test UI
+            UserInterface ui = new UserInterface(dealership);
+            ui.display();
+
+
             // just in case
         } else {
             System.out.println("Failed to load dealership.");
         }
-    }
-}
+
+            }
+        }
