@@ -9,7 +9,7 @@ public class Main {
         Dealership dealership = manager.getDealership();
         // if dealership isnt empty it prints out what was grabbed in the getdealership method.
         if (dealership != null) {
-            System.out.println("Dealership Loaded:");
+            System.out.println("Current Dealership Loaded:");
             System.out.println("Name: " + dealership.getName());
             System.out.println("Address: " + dealership.getAddress());
             System.out.println("Phone: " + dealership.getPhone());

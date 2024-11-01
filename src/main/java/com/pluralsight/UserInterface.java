@@ -1,8 +1,9 @@
 package com.pluralsight;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.io.BufferedReader;
-import java.util.Scanner;
-import java.util.List;
+import java.util.*;
 
 public class UserInterface {
     private Dealership dealership;
@@ -87,13 +88,72 @@ public class UserInterface {
         System.out.println("99. Quit");
     }
 
-    // Placeholder for process methods
-    public void processGetByPriceRequest() {}
-    public void processGetByMakeModelRequest() {}
-    public void processGetByYearRequest() {}
-    public void processGetByColorRequest() {}
-    public void processGetByMileageRequest() {}
-    public void processGetByVehicleTypeRequest() {}
+    // scanner to be used in the process methods below
+    Scanner scanner = new Scanner(System.in);
+    // Process methods
+    public void processGetByPriceRequest() {
+        System.out.println();
+    }
+
+    public void processGetByMakeModelRequest() {
+        System.out.println();
+    }
+    public void processGetByYearRequest() {
+        System.out.println();
+    }
+    public void processGetByColorRequest() {
+        System.out.println("Sure, What's the color of car you are looking for?");
+        String colorSelection = scanner.nextLine();
+        //create matchingVehicles list to store any that match the request
+        List<Vehicle> matchingVehicles = new ArrayList<>();
+        // getting vehicles loop. Each time something fits it goes to our empty list we just made.
+        for (Vehicle vehicle : dealership.getVehicles()) {
+            // if we got a match add that vehicle and display it.
+            if (vehicle.getColor().equalsIgnoreCase(colorSelection)) {
+                matchingVehicles.add(vehicle);
+            }
+        }
+
+        if (matchingVehicles.isEmpty()) {
+            System.out.println("Sorry, we don't have any vehicles in " + colorSelection + ".");
+
+            // HashSet ignores duplicates and doesn't care about order, so we only present user with colors rather than a bunch of the same ones.
+
+            Set<String> availableColors = new HashSet<>();
+            //Runs through the dealership to get a list of colors and then
+            for (Vehicle vehicle : dealership.getVehicles()) {
+                //assigns available colors to availableColors so we can print it on ln 129
+                availableColors.add(vehicle.getColor());
+            }
+
+            System.out.println("Here are some colors we do have available: " + availableColors);
+        } else {
+            // If we had something in the color they want we just display that.
+            displayVehicles(matchingVehicles);
+        }
+    }
+
+
+    public void processGetByMileageRequest() {
+        System.out.println();
+    }
+    public void processGetByVehicleTypeRequest() {
+        System.out.println("Sure, What's the type of car you are looking for? \n 1)Car 2)Truck 3)SUV 4)Van 5)Back");
+        int choice = scanner.nextInt();
+        List<Vehicle> filteredVehicles = new ArrayList<>();
+        switch (choice) {
+            case 1:  filteredVehicles = filterVehiclesByType("Car");// write code to show only what is asked for if car
+            case 2: list<Vehicle> // write code to show only what is asked for. Do this for case 3 and 4 as well.
+            case 3:
+            case 4:
+            case 5: // write code to go back to the previous selection.
+
+            default:
+                throw new IllegalStateException("Please try again " + choice + "Isn't a valid selection.");
+        }
+
+    }
+
     public void processGetAllVehiclesRequest() {
         //Gets the dealershipObject to use method getvehicles to return a list stored in the allVehicles var.
         List<Vehicle> allVehicles = dealership.getVehicles();
