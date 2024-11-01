@@ -27,9 +27,22 @@ public class DealershipFileManager {
     //Saves a dealership into the file that can later be grabbed using getDealership.
     public void saveDealership(Dealership dealership) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("WorkshopFiles/WorkshopFiles/inventory.csv"))) {
-            // We'll add code here to write dealership info
+            // Write the dealership details to the first line
+            // uses the methods listed in dealership to get variables for each field.
+            bw.write(dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhone());
+            bw.newLine(); // Move to the next line for potential vehicle entries
+            //This says for each vehicle in our vehicle object call the get vehicle method then,
+            // Loop through each vehicle and write its details in the order that we find it in the csv
+            for (Vehicle vehicle : dealership.getVehicles()) {
+                bw.write(vehicle.getVin() + "|" + vehicle.getYear() + "|" + vehicle.getMake() + "|" +
+                        vehicle.getModel() + "|" + vehicle.getVehicleType() + "|" + vehicle.getColor() + "|" +
+                        vehicle.getOdometer() + "|" + vehicle.getPrice());
+                bw.newLine(); // Move to a new line for the next vehicle
+            }
+
         } catch (IOException e) {
             System.out.println("Error saving file: " + e.getMessage());
         }
     }
+
 }
